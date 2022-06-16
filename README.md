@@ -105,7 +105,7 @@ Bull dashboard available at http://localhost:5000/admin
 
 ## Create Candy Machine for development collection
 
-- Setup solana wallet and config
+### Setup solana wallet and config
 
 ```shell
 $ cd ~/.config/solana/
@@ -117,9 +117,13 @@ $ solana balance // Verify balance after airdrop
 $ solana config get // Verify keypair and solana cluster url
 ```
 
-- Follow instructions on Metaplex website for creating Candy Machine v2 - https://docs.metaplex.com/candy-machine-v2/introduction
+### Metaplex guide for creating CM2
 
-- Additional explanation for some points in Metaplex guide. Following example creating 10 nfts.
+Follow instructions on Metaplex website for creating Candy Machine v2 - https://docs.metaplex.com/candy-machine-v2/introduction
+
+### Additional explanation for some points in Metaplex guide.
+
+#### Following example creating 10 nfts.
 
 Example of 'config.json' - https://drive.google.com/file/d/1OMez0ELcReEMedpN0k5m5q55i3SZkWsi/view?usp=sharing
 
@@ -127,7 +131,7 @@ Download script for generating metadata files - https://drive.google.com/file/d/
 
 Download Key gif for tokens - https://cryptoquest.mypinata.cloud/ipfs/QmNZV2SLmpdFC9VLTbJZbYEg3GdvJYjRUQ6Pp1yy38JajW
 
-- All following commands has to be executed inside 'metaplex/js/packages/cli/src' folder
+#### All following commands has to be executed inside 'metaplex/js/packages/cli/src' folder
 
 ```shell
 $ mkdir upload
