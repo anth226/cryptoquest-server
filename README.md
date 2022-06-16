@@ -98,3 +98,61 @@ $ redis-cli ping
 
 $ npm run start:dev
 ```
+
+## Bull dashboard
+
+Bull dashboard available at http://localhost:5000/admin
+
+## Create Candy Machine for development collection
+
+- Setup solana wallet and config
+
+```shell
+$ cd ~/.config/solana/
+$ solana-keygen new --outfile ~/.config/solana/devnet.json
+$ solana config set --keypair ~/.config/solana/devnet.json
+$ solana config set --url https://api.devnet.solana.com
+$ solana airdrop 2 // Airdrop no more than 2 SOL per one transaction
+$ solana balance // Verify balance after airdrop
+$ solana config get // Verify keypair and solana cluster url
+```
+
+- Follow instructions on Metaplex website for creating Candy Machine v2 - https://docs.metaplex.com/candy-machine-v2/introduction
+
+- Additional explanation for some points in Metaplex guide. Following example creating 10 nfts.
+
+Example of 'config.json' - https://drive.google.com/file/d/1OMez0ELcReEMedpN0k5m5q55i3SZkWsi/view?usp=sharing
+
+Download script for generating metadata files - https://drive.google.com/file/d/1QqLLAVtAMw_zngg8qD9Ah3AgLmib7iSv/view?usp=sharing
+
+Download Key gif for tokens - https://cryptoquest.mypinata.cloud/ipfs/QmNZV2SLmpdFC9VLTbJZbYEg3GdvJYjRUQ6Pp1yy38JajW
+
+- All following commands has to be executed inside 'metaplex/js/packages/cli/src' folder
+
+```shell
+$ mkdir upload
+$ cp <path to generateJson.py> ./upload // Copy downloaded script into 'upload' folder
+$ cd upload
+$ python3 generateJson.py // Generate tokens metadata files
+$ rm generateJson.py // Delete 'generateJson.py' file from upload folder after generating all metadata files
+$ cp <path to Key gif image> ./ // Copy Key image inside 'upload' folder with name '0.gif'
+$ for((i=0; i <=9; i++)); do cp 0.gif "${i}.gif"; done // Run loop to create images for quantity of tokens
+```
+
+Change sleep timeout for 5 seconds inside '/helpers/upload/pinata.ts' (from 'await sleep(500);' to 'await sleep(5000);'). Pinata is rate limited.
+
+Upload collection to devnet
+
+```shell
+$ ts-node candy-machine-v2-cli.ts upload -e devnet -k ~/.config/solana/devnet.json -cp config.json -c example ./upload
+```
+
+Verify upload after upload will finish
+
+```shell
+$ ts-node candy-machine-v2-cli.ts verify_upload -e devnet -k ~/.config/solana/devnet.json -c example
+```
+
+After successfull upload new hidden folder '.cache' will be created
+Inside file 'devnet-example.json' will be candy machine id as "program.candyMachine"
+Specify candy machine id inside .env file in 'cryptoquest-candy-machine-ui' repo
