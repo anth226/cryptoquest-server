@@ -157,6 +157,6 @@ Verify upload after upload will finish
 $ ts-node candy-machine-v2-cli.ts verify_upload -e devnet -k ~/.config/solana/devnet.json -c example
 ```
 
-After successfull upload new hidden folder '.cache' will be created
-Inside file 'devnet-example.json' will be candy machine id as "program.candyMachine"
-Specify candy machine id inside .env file in 'cryptoquest-candy-machine-ui' repo
+After successfull upload new hidden folder '.cache' will be created.
+Inside file 'devnet-example.json' will be candy machine id as "program.candyMachine".
+Specify candy machine id inside .env file in 'cryptoquest-candy-machine-ui' repo.
